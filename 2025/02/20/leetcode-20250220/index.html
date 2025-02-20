@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>leetcode 20250220 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="重新安排行程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode 20250220">
+<meta property="og:url" content="https://xsd1.github.io/2025/02/20/leetcode-20250220/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="重新安排行程">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-20T14:21:00.000Z">
+<meta property="article:modified_time" content="2025-02-20T14:29:44.310Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="回溯">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://xsd1.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-leetcode-20250220" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/20/leetcode-20250220/" class="article-date">
+  <time class="dt-published" datetime="2025-02-20T14:21:00.000Z" itemprop="datePublished">2025-02-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      leetcode 20250220
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="重新安排行程"><a href="#重新安排行程" class="headerlink" title="重新安排行程"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reconstruct-itinerary/description/">重新安排行程</a></h1><span id="more"></span>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">findItinerary</span><span class="params">(vector&lt;vector&lt;string&gt;&gt;&amp; tickets)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = tickets.<span class="built_in">size</span>();</span><br><span class="line">        vector&lt;string&gt; path;</span><br><span class="line">        unordered_map&lt;string, <span class="type">int</span>&gt; used;</span><br><span class="line">        unordered_map&lt;string, vector&lt;string&gt;&gt; up;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (up.<span class="built_in">find</span>(tickets[i][<span class="number">0</span>]) == up.<span class="built_in">end</span>()) up[tickets[i][<span class="number">0</span>]] = &#123;&#125;;</span><br><span class="line">            <span class="keyword">if</span> (used.<span class="built_in">find</span>(tickets[i][<span class="number">0</span>] + tickets[i][<span class="number">1</span>]) != used.<span class="built_in">end</span>()) used[tickets[i][<span class="number">0</span>] + tickets[i][<span class="number">1</span>]]++;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                used[tickets[i][<span class="number">0</span>] + tickets[i][<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">                up[tickets[i][<span class="number">0</span>]].<span class="built_in">push_back</span>(tickets[i][<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; pair : up) &#123;</span><br><span class="line">            <span class="built_in">sort</span>(pair.second.<span class="built_in">begin</span>(), pair.second.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        path.<span class="built_in">push_back</span>(<span class="string">&quot;JFK&quot;</span>);</span><br><span class="line">        <span class="built_in">bt</span>(up, path, used, n, <span class="string">&quot;JFK&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> path;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">bt</span><span class="params">(unordered_map&lt;string, vector&lt;string&gt;&gt; up, vector&lt;string&gt;&amp; path, unordered_map&lt;string, <span class="type">int</span>&gt;&amp; used, <span class="type">int</span> n, string from)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (path.<span class="built_in">size</span>() == n + <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; up[from].<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            string k = from + up[from][i];</span><br><span class="line">            <span class="keyword">if</span> (used[k] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                path.<span class="built_in">push_back</span>(up[from][i]);</span><br><span class="line">                --used[k];</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">bt</span>(up, path, used, n, up[from][i])) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">                ++used[k];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li>相同航班只存一次</li>
+<li>返回bool比全局变量更快（不知道为什么）</li>
+</ul>
+<h1 id="非递减子序列"><a href="#非递减子序列" class="headerlink" title="非递减子序列"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/non-decreasing-subsequences/description/">非递减子序列</a></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">findSubsequences</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        <span class="type">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">bt</span>(res, path, nums, start);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">bt</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; res, vector&lt;<span class="type">int</span>&gt;&amp; path, vector&lt;<span class="type">int</span>&gt; nums, <span class="type">int</span> start)</span> </span>&#123;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; st;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt; nums.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (st.<span class="built_in">find</span>(nums[i]) != st.<span class="built_in">end</span>() || (path.<span class="built_in">size</span>() &amp;&amp; path.<span class="built_in">back</span>() &gt; nums[i])) <span class="keyword">continue</span>;</span><br><span class="line">            path.<span class="built_in">push_back</span>(nums[i]);</span><br><span class="line">            st.<span class="built_in">insert</span>(nums[i]);</span><br><span class="line">            <span class="keyword">if</span> (path.<span class="built_in">size</span>() &gt; <span class="number">1</span>) res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="built_in">bt</span>(res, path, nums, i + <span class="number">1</span>);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li>在<strong>同一层</strong>使用unordered_set处理相同的数字</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://xsd1.github.io/2025/02/20/leetcode-20250220/" data-id="cm7dfkfuq0000hsvu1nucagd2" data-title="leetcode 20250220" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%9E%E6%BA%AF/" rel="tag">回溯</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/02/19/leetcode-20250219/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">leetcode 20250219</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/%E6%89%BE%E5%B7%A5%E4%BD%9C/">找工作</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilibili/" rel="tag">bilibili</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mark/" rel="tag">mark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nice-sentences/" rel="tag">nice sentences</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BA%AF/" rel="tag">回溯</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/bilibili/" style="font-size: 10px;">bilibili</a> <a href="/tags/mark/" style="font-size: 10px;">mark</a> <a href="/tags/nice-sentences/" style="font-size: 10px;">nice sentences</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 20px;">回溯</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/20/leetcode-20250220/">leetcode 20250220</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/19/leetcode-20250219/">leetcode 20250219</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/18/Today-bilibili-nice-comment/">Today bilibili nice comment</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/18/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
