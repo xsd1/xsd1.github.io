@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>leetcode 20250223-1 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="分发饼干">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode 20250223-1">
+<meta property="og:url" content="https://xsd1.github.io/2025/02/23/leetcode-20250223-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分发饼干">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://xsd1.github.io/2025/02/23/leetcode-20250223-1/image-20250223123505277.png">
+<meta property="article:published_time" content="2025-02-23T04:28:00.000Z">
+<meta property="article:modified_time" content="2025-02-26T09:01:49.459Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="贪心">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xsd1.github.io/2025/02/23/leetcode-20250223-1/image-20250223123505277.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://xsd1.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-leetcode-20250223-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/23/leetcode-20250223-1/" class="article-date">
+  <time class="dt-published" datetime="2025-02-23T04:28:00.000Z" itemprop="datePublished">2025-02-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      leetcode 20250223-1
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="分发饼干"><a href="#分发饼干" class="headerlink" title="分发饼干"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/assign-cookies/">分发饼干</a></h1><span id="more"></span>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findContentChildren</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; g, vector&lt;<span class="type">int</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n = g.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">sort</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">        <span class="built_in">sort</span>(g.<span class="built_in">begin</span>(), g.<span class="built_in">end</span>());</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (l &lt; s.<span class="built_in">size</span>() &amp;&amp; g[i] &gt; s[l]) l++;</span><br><span class="line">            <span class="keyword">if</span> (l != s.<span class="built_in">size</span>()) sum++, l++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<ul>
+<li>每个孩子只用它能满足的最小饼干数</li>
+<li>优先满足所需饼干数小的孩子</li>
+</ul>
+<h1 id="摆动序列"><a href="#摆动序列" class="headerlink" title="摆动序列"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/wiggle-subsequence/">摆动序列</a></h1><img src="/2025/02/23/leetcode-20250223-1/image-20250223123505277.png" class="" title="image-20250223123505277">
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">wiggleMaxLength</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">size</span>() &lt;= <span class="number">1</span>) <span class="keyword">return</span> nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> curDiff = <span class="number">0</span>; <span class="comment">// 当前一对差值</span></span><br><span class="line">        <span class="type">int</span> preDiff = <span class="number">0</span>; <span class="comment">// 前一对差值</span></span><br><span class="line">        <span class="type">int</span> result = <span class="number">1</span>;  <span class="comment">// 记录峰值个数，序列默认序列最右边有一个峰值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>() - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            curDiff = nums[i + <span class="number">1</span>] - nums[i];</span><br><span class="line">            <span class="comment">// 出现峰值</span></span><br><span class="line">            <span class="keyword">if</span> ((preDiff &lt;= <span class="number">0</span> &amp;&amp; curDiff &gt; <span class="number">0</span>) || (preDiff &gt;= <span class="number">0</span> &amp;&amp; curDiff &lt; <span class="number">0</span>)) &#123;</span><br><span class="line">                result++;</span><br><span class="line">                preDiff = curDiff; <span class="comment">// 注意这里，只在摆动变化的时候更新prediff</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路（有点难）：</p>
+<ul>
+<li>找出现的所有的峰值（<a target="_blank" rel="noopener" href="https://www.programmercarl.com/0376.%E6%91%86%E5%8A%A8%E5%BA%8F%E5%88%97.html#%E6%80%9D%E8%B7%AF">代码随想录</a>）</li>
+<li>在实际代码中，我们记录当前序列的上升下降趋势。每次加入一个新元素时，用新的上升下降趋势与之前对比，如果出现了「峰」或「谷」，答案加一，并更新当前序列的上升下降趋势。（<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/wiggle-subsequence/solutions/518296/bai-dong-xu-lie-by-leetcode-solution-yh2m/">leetcode</a>）</li>
+</ul>
+<h1 id="最大子数组和"><a href="#最大子数组和" class="headerlink" title="最大子数组和"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-subarray/">最大子数组和</a></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> res = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (; r &lt; n; r++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ans &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                ans += nums[r];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                ans = nums[r];</span><br><span class="line">            &#125;</span><br><span class="line">            res = <span class="built_in">max</span>(res, ans);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<ul>
+<li>要求是连续子数组，所以当之前的子序列和&lt;0的时候即可抛弃 从新的下标继续计算</li>
+</ul>
+<h1 id="买卖股票的最佳时机-II"><a href="#买卖股票的最佳时机-II" class="headerlink" title="买卖股票的最佳时机 II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">买卖股票的最佳时机 II</a></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxProfit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; n &amp;&amp; prices[i] &gt;= prices[i - <span class="number">1</span>]) i++;</span><br><span class="line">            ans += prices[i - <span class="number">1</span>] - prices[l];</span><br><span class="line">            l = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<ul>
+<li>找连续上升区间 最低点买进 最高点卖出</li>
+</ul>
+<h1 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/jump-game/">跳跃游戏</a></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">canJump</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n;) &#123;</span><br><span class="line">            <span class="type">int</span> step = nums[i];</span><br><span class="line">            <span class="comment">// cout &lt;&lt; step &lt;&lt; endl;</span></span><br><span class="line">            <span class="keyword">if</span> (i + step &gt;= n - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (!step) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="type">int</span> _ = <span class="number">-1</span>;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="type">int</span> id = i;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; n &amp;&amp; step--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + i &gt;= _) &#123;</span><br><span class="line">                    _ = nums[i] + i;</span><br><span class="line">                    id = i;</span><br><span class="line">                &#125;</span><br><span class="line">                i++;</span><br><span class="line">                <span class="keyword">if</span> (_ &gt;= n - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line">            &#125;</span><br><span class="line">            i = id;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<ul>
+<li>仅需判断是否能跳到最后点，每次都选当前能跳到的范围内向右跳的最远的点 判断是否能达到终点</li>
+<li>注意跳到非终点的0就只能返回false</li>
+</ul>
+<h1 id="跳跃游戏-II"><a href="#跳跃游戏-II" class="headerlink" title="跳跃游戏 II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/jump-game-ii/">跳跃游戏 II</a></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">jump</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> sum;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>;) &#123;</span><br><span class="line">            <span class="type">int</span> step = nums[i];</span><br><span class="line">            <span class="keyword">if</span> (i + step &gt;= n - <span class="number">1</span>) <span class="keyword">return</span> sum + <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> _ = <span class="number">-1</span>;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="type">int</span> id = i;</span><br><span class="line">            sum++;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; n &amp;&amp; step--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] + i &gt;= _) &#123;</span><br><span class="line">                    _ = nums[i] + i;</span><br><span class="line">                    id = i;</span><br><span class="line">                &#125;</span><br><span class="line">                i++;</span><br><span class="line">                <span class="keyword">if</span> (_ &gt;= n - <span class="number">1</span>) <span class="keyword">return</span> sum + <span class="number">1</span>; </span><br><span class="line">            &#125;</span><br><span class="line">            i = id;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路：</p>
+<ul>
+<li>要求跳最少次，思路同上，每次选跳的最远（说明此时没到终点，需要向右跳一次），选最远的过程相当于从当前点跳到新的点，再从新的点开始跳 所以返回sum+1</li>
+<li>当前点特判亦是如此（返回sum+1）</li>
+</ul>
+<h1 id="加油站"><a href="#加油站" class="headerlink" title="加油站"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/gas-station/">加油站</a></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># 解法一 滑动窗口</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">canCompleteCircuit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; gas, vector&lt;<span class="type">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> n = gas.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) total += gas[i] - cost[i];</span><br><span class="line">        <span class="keyword">if</span> (total &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (r &lt; n) &#123;</span><br><span class="line">            <span class="type">int</span> rest = gas[r] - cost[r];</span><br><span class="line">            ans += rest;</span><br><span class="line">            <span class="keyword">if</span>(ans &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                ans -= gas[l] - cost[l];</span><br><span class="line">                <span class="keyword">if</span>(l &lt; r)&#123;</span><br><span class="line">                    l++;</span><br><span class="line">                    ans -= rest;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    r++;</span><br><span class="line">                    l++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                r++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; n &amp;&amp; gas[l] - cost[l] &lt; <span class="number">0</span>) l++; <span class="comment">// 起点首相要求&gt;=0</span></span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"># 解法二 贪心</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">canCompleteCircuit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; gas, vector&lt;<span class="type">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> curSum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> totalSum = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; gas.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            curSum += gas[i] - cost[i];</span><br><span class="line">            totalSum += gas[i] - cost[i];</span><br><span class="line">            <span class="keyword">if</span> (curSum &lt; <span class="number">0</span>) &#123;   <span class="comment">// 当前累加rest[i]和 curSum一旦小于0</span></span><br><span class="line">                start = i + <span class="number">1</span>;  <span class="comment">// 起始位置更新为i+1</span></span><br><span class="line">                curSum = <span class="number">0</span>;     <span class="comment">// curSum从0开始</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (totalSum &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 说明怎么走都不可能跑一圈了</span></span><br><span class="line">        <span class="keyword">return</span> start;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路（难）：</p>
+<ul>
+<li>首先可以确定 gas-cost的和&lt;0 则比不可能绕一圈</li>
+<li>反之，假设该点下标为k，那么，以k点将数组一分为2 其点左边的和&lt;0 右边的和&gt;0</li>
+<li>所以贪心的思路是从0开始向右计算累加和：&lt;0 则从新的点重新计算 直到找到一个点开始直至末尾的和&gt;0</li>
+<li>滑动窗口的思想类似，只需要保持窗口内的和始终&gt;0 （其实必然也会到最后），但是要注意起点首项必然&gt;0</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://xsd1.github.io/2025/02/23/leetcode-20250223-1/" data-id="cm7lostwm0009rwvu6cmgbsnz" data-title="leetcode 20250223-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/02/26/leetcode-20250226/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          leetcode 20250226
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/23/leetcode-20250223/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">leetcode 20250223</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/%E6%89%BE%E5%B7%A5%E4%BD%9C/">找工作</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilibili/" rel="tag">bilibili</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mark/" rel="tag">mark</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nice-sentences/" rel="tag">nice sentences</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E6%BA%AF/" rel="tag">回溯</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/bilibili/" style="font-size: 10px;">bilibili</a> <a href="/tags/mark/" style="font-size: 10px;">mark</a> <a href="/tags/nice-sentences/" style="font-size: 10px;">nice sentences</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 20px;">回溯</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/02/26/leetcode-20250226/">leetcode 20250226</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/23/leetcode-20250223-1/">leetcode 20250223-1</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/23/leetcode-20250223/">leetcode 20250223</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/20/leetcode-20250220/">leetcode 20250220</a>
+          </li>
+        
+          <li>
+            <a href="/2025/02/19/leetcode-20250219/">leetcode 20250219</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
